@@ -3,9 +3,13 @@ package chapter2.agent_AB;
 public class Environment {
 	public static final Action MOVE_LEFT = new DynamicAction("LEFT");
 	public static final Action MOVE_RIGHT = new DynamicAction("RIGHT");
+	public static final Action MOVE_DOWN = new DynamicAction("DOWN");
+	public static final Action MOVE_UP = new DynamicAction("UP");
 	public static final Action SUCK_DIRT = new DynamicAction("SUCK");
 	public static final String LOCATION_A = "A";
 	public static final String LOCATION_B = "B";
+	public static final String LOCATION_C = "C";
+	public static final String LOCATION_D = "D";
 
 	public enum LocationState {
 		CLEAN, DIRTY
@@ -37,9 +41,29 @@ public class Environment {
 		if(action == Environment.SUCK_DIRT) {
 				envState.setLocationState(agentLocation ,LocationState.CLEAN );
 		}else if (action == MOVE_RIGHT) {
-			envState.setAgentLocation(LOCATION_B);
+			if(envState.getAgentLocation() == LOCATION_A) {
+				envState.setAgentLocation(LOCATION_B);
+			}else if(envState.getAgentLocation() == LOCATION_D) {
+				envState.setAgentLocation(LOCATION_C);
+			}
 		}else if (action == MOVE_LEFT) {
-			envState.setAgentLocation(LOCATION_A);
+			if(envState.getAgentLocation() == LOCATION_B) {
+				envState.setAgentLocation(LOCATION_A);
+			}else if(envState.getAgentLocation() == LOCATION_C) {
+				envState.setAgentLocation(LOCATION_D);
+			}
+		}else if (action == MOVE_UP) {
+			if(envState.getAgentLocation() == LOCATION_D) {
+				envState.setAgentLocation(LOCATION_A);
+			}else if(envState.getAgentLocation() == LOCATION_C) {
+				envState.setAgentLocation(LOCATION_B);
+			}
+		}else if (action == MOVE_DOWN) {
+			if(envState.getAgentLocation() == LOCATION_A) {
+				envState.setAgentLocation(LOCATION_D);
+			}else if(envState.getAgentLocation() == LOCATION_B) {
+				envState.setAgentLocation(LOCATION_C);
+			}
 		}
 		// TODO
 		return envState;
